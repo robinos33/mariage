@@ -12,6 +12,16 @@
         {% endblock %}
     </head>
     <body>
+        {% block nav %}
+            {{ component('nav', {
+                    navItems: [
+                        { label: 'Déroulé de la journée', route: 'planning' },
+                        { label: 'Lieu des festivités', route: 'place' },
+                        { label: 'Je confirme ma participation', route: 'confirmation' },
+                    ],
+                    currentRoute: app.request.attributes.get('_route')
+                }) }}
+        {% endblock %}
         {% block body %}{% endblock %}
     </body>
 </html>

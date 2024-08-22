@@ -1,0 +1,10 @@
+<nav role="nav">
+    <a href="/">Accueil</a>
+    <ul>
+        {% for item in navItems %}
+            <li class="{% if item.route == currentRoute %}active{% endif %}">
+                <a href="{{ path(item.route) }}">{{ item.label }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
