@@ -1,5 +1,27 @@
 {% extends "base.html.twig" %}
-
+{% block title %}Déroulé de la journée{% endblock %}
 {% block body %}
-Planning
+
+<div>
+Bienvenue texte intro
+Dress code : on veut que vous soyez belles et beaux pour les photos 😃
+</div>
+<nav role="nav" data-controller="day-selector">
+    <a href="{{ path('app_timeline_day', {dayNumber: 1}) }}"
+                    data-turbo-frame="timeline-frame"
+                    data-action="click->day-selector#select"
+                    data-day-selector-target="link"
+                    class="day-link active">
+                        Samedi 14 juin
+                    </a>
+    <a href="{{ path('app_timeline_day', {dayNumber: 2}) }}"
+                    data-turbo-frame="timeline-frame"
+                    data-action="click->day-selector#select"
+                    data-day-selector-target="link"
+                    class="day-link">
+                        Dimanche 15 juin
+                    </a>
+</nav>
+<turbo-frame id="timeline-frame" src="{{ path('app_timeline_day', {dayNumber: 1}) }}"></turbo-frame>
+
 {% endblock %}

@@ -1,0 +1,12 @@
+<turbo-frame id="timeline-frame">
+<div>
+    <ul>
+        {% for link in links %}
+            <li>
+                <a href="{{ link.url }}" data-turbo-frame="detail-frame-{{ dayNumber }}">{{ link.text }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <turbo-frame id="detail-frame-{{ dayNumber }}"></turbo-frame>
+</div>
+</turbo-frame>
