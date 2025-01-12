@@ -41,10 +41,10 @@ jobs:
       - name: Deploy to server via SSH with password
         run: |
           # Déployer le fichier zip sur le serveur distant via SSH avec mot de passe
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp -T mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
 
           # Dézipper le fichier zip sur le serveur
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /srv/mariage/
             unzip -o mariage.zip
             rm mariage.zip
