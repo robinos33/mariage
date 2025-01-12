@@ -30,7 +30,7 @@ jobs:
         run: |
           php bin/console cache:clear --env=prod
           php bin/console assets:install --env=prod
-          php bin/console doctrine:migrations:migrate --no-interaction --env=prod
+          # php bin/console doctrine:migrations:migrate --no-interaction --env=prod
 
       # Étape 4 : Zipper le projet
       - name: Zip the project
