@@ -1,0 +1,55 @@
+name: Symfony Build and Deploy
+
+on:
+  push:
+    branches:
+      - "main"
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Checkout du code
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      # Étape 2 : Installer les dépendances (y compris Symfony)
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y unzip zip sshpass
+          curl -sS https://getcomposer.org/installer | php
+          php composer.phar install --prefer-dist --no-progress --optimize-autoloader --no-dev
+
+      # Étape 3 : Build en mode production
+      - name: Build the project in production mode
+        run: |
+          php bin/console cache:clear --env=prod
+          php bin/console assets:install --env=prod
+          php bin/console doctrine:migrations:migrate --no-interaction --env=prod
+
+      # Étape 4 : Zipper le projet
+      - name: Zip the project
+        run: |
+          zip -r mariage.zip .
+
+      # Étape 5 : Déployer via SSH avec mot de passe
+      - name: Deploy to server via SSH with password
+        run: |
+          # Déployer le fichier zip sur le serveur distant via SSH avec mot de passe
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
+
+          # Dézipper le fichier zip sur le serveur
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            cd /srv/mariage/
+            unzip -o mariage.zip
+            rm mariage.zip
+          EOF
+        env: via github
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
