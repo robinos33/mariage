@@ -11,6 +11,8 @@ class IndexController extends AbstractController
 {
     public function __invoke()
     {
-        return $this->render('confirmation/index.html.twig');
+        return $this->render('confirmation/index.html.twig', [
+            'confirmationForm' => $this->createForm('App\Form\ConfirmationType')->createView()
+        ] );
     }
 }

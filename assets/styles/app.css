@@ -2,3 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@daisyui/dist/full.min.css";
+details {
+  user-select: none;
+
+  & summary svg {
+    transform: rotate(90deg);
+  }
+}
+
+details[open] {
+  & summary svg {
+    transform: rotate(-90deg);
+
+  }
+
+}
+
+
+details[open] summary~* {
+  animation: ease-opacity-t-b .5s ease
+}
+
+summary {
+  cursor: pointer;
+}
+
+svg {
+  transition: all 0.3s;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.container_with_padding {
+  @apply w-full lg:w-2/3;
+  padding: 2rem;
+}
+
+.typo-h2 {
+  @apply text-3xl font-bold leading-10 mb-4;
+}

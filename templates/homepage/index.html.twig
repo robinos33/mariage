@@ -1,5 +1,35 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-Accueil
+{% set plural = "" %}
+{% set countdownSentence = "" %}
+{% if countdown.status == 'days' %}
+    {% set plural = countdown.days > 1 ? 's' %}
+    {% set countdownSentence = countdown.days ~ ' jour' ~ plural %}
+{% elseif countdown.status == 'hours' %}
+    {% set plural = countdown.hours > 1 ? 's' %} 
+    {% set countdownSentence = countdown.hours ~ ' heure' ~ plural %}
+{% elseif countdown.status == 'minutes' %}
+    {% set plural = countdown.minutes > 1 ? 's' %}
+    {% set countdownSentence = countdown.minutes ~ ' minute' ~ plural %}
+{% else %}
+    {% set countdownSentence = "" %}
+{% endif %}
+<div class="w-full flex flex-col items-center">
+    <div class="container_with_padding">
+        <div>
+            Retrouve-nous le {{ countdown_end_date|date('l j F Y') }} à {{ countdown_end_date|date('H') }}h{{ countdown_end_date|date('i') }} pour notre mariage.
+        </div>
+        <div>Carton d'invitation</div>
+
+        {% if countdownSentence %}
+            Plus que <span class="text-red">{{ countdownSentence }}</span>
+        {% endif %}
+        <p>Dress code : il faut que tu te trouve beau/belle et bien habillé.e sur les photos 😃</p>
+   </div>
+</div>
+{{ render(controller('App\\Controller\\Planning\\IndexController')) }}
+{{ render(controller('App\\Controller\\Place\\IndexController')) }}
+{{ render(controller('App\\Controller\\Confirmation\\IndexController')) }}
+
 {% endblock %}

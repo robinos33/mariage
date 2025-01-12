@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="pastel">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %} | Mariage d'Audrey & Robin</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/daisyui/dist/full.min.css') }}">
         {% endblock %}
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-        {% block nav %}
-            {{ component('nav', {
-                    navItems: [
-                        { label: 'Déroulé de la journée', route: 'planning' },
-                        { label: 'Lieu des festivités', route: 'place' },
-                        { label: 'Je confirme ma participation', route: 'confirmation' },
-                    ],
-                    currentRoute: app.request.attributes.get('_route')
-                }) }}
-        {% endblock %}
+    <body class="min-h-screen bg-custom-grey">
+    {% block nav %}
+        {{ component('nav', {
+                navItems: [
+                    { label: 'Déroulé de la journée', route: '#planning' },
+                    { label: 'Lieu des festivités', route: '#place' },
+                    { label: 'Je confirme ma participation', route: '#confirmation' },
+                ],
+                currentRoute: app.request.attributes.get('_route')
+            }) }}
+    {% endblock %}
+    <div class="mt-16">
         {% block body %}{% endblock %}
+    </div>
     </body>
 </html>

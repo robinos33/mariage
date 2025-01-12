@@ -25,4 +25,11 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    '@stimulus-components/scroll-to' => [
+        'version' => '5.0.1',
+    ],
+    'daisyui/dist/full.min.css' => [
+        'version' => '4.12.23',
+        'type' => 'css',
+    ],
 ];

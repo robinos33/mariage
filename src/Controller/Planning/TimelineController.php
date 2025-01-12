@@ -19,22 +19,21 @@ class TimelineController extends AbstractController
     public function __invoke(int $dayNumber): Response
     {
         $links = [
-            ['url' => $this->router->generate('app_timeline_item', ['timelineItem' => "ceremonie", 'dayNumber' => $dayNumber]), 'text' => 'Cérémonie à la mairie de Bègles'],
-            ['url' => $this->router->generate('app_timeline_item', ['timelineItem' => "accueil", 'dayNumber' => $dayNumber]), 'text' => 'Arrivée sur le lieu des festivités'],
-            ['url' => $this->router->generate('app_timeline_item', ['timelineItem' => "cocktail", 'dayNumber' => $dayNumber]), 'text' => 'Cocktail'],
-            ['url' => $this->router->generate('app_timeline_item', ['timelineItem' => "repas", 'dayNumber' => $dayNumber]), 'text' => 'Repas'],
-            ['url' => $this->router->generate('app_timeline_item', ['timelineItem' => "soiree-dansante", 'dayNumber' => $dayNumber]), 'text' => 'Soirée dansante'],
+            ['title' => 'Cérémonie', 'timelineItem' => "ceremonie", 'time' => "15h"],
+            ['title' => 'Arrivée sur le lieu des festivités', 'timelineItem' => "accueil", 'time' => "17h30"],
+            ['title' => 'Cocktail', 'timelineItem' => "cocktail", 'time' => "18h"],
+            ['title' => 'Repas', 'timelineItem' => "repas", 'time' => "20h30"],
+            ['title' => 'Soirée dansante', 'timelineItem' => "soiree-dansante", 'time' => "22h30"],
         ];
-dump($dayNumber);
+
         if($dayNumber === 2) {
             $links = [
-                ['url' => $this->router->generate('app_timeline_item', ['timelineItem' => "brunch", 'dayNumber' => $dayNumber]), 'text' => 'Brunch'],
-                ['url' => $this->router->generate('app_timeline_item', ['timelineItem' => "activites", 'dayNumber' => $dayNumber]), 'text' => 'Activités'],
+                ['title' => 'Brunch', 'timelineItem' => "brunch", 'time' => "11h"],
+                ['title' => 'Activités', 'timelineItem' => "activites", 'time' => "14h"],
             ];
         }
 
         return $this->render('planning/timeline.html.twig', [
-            'dayNumber' => $dayNumber,
             'links' => $links,
         ]);
     }
