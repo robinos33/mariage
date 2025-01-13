@@ -32,19 +32,28 @@ jobs:
           php bin/console assets:install --env=prod
           # php bin/console doctrine:migrations:migrate --no-interaction --env=prod
 
-      # Étape 4 : Zipper le projet
+      # Étape 4 : Configurer l'authentification SSH
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          # Ajouter l'hôte distant à known_hosts pour éviter les avertissements de sécurité
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      # Étape 5 : Zipper le projet
       - name: Zip the project
         run: |
           zip -r mariage.zip .
 
-      # Étape 5 : Déployer via SSH avec mot de passe
+      # Étape 6 : Déployer via SSH avec mot de passe
       - name: Deploy to server via SSH with password
         run: |
           # Déployer le fichier zip sur le serveur distant via SSH avec mot de passe
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp -T mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
+          scp -T mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
 
           # Dézipper le fichier zip sur le serveur
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /srv/mariage/
             unzip -o mariage.zip
             rm mariage.zip
@@ -52,4 +61,3 @@ jobs:
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
-          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
