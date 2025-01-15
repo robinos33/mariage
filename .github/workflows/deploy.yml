@@ -55,8 +55,8 @@ jobs:
           # Dézipper le fichier zip sur le serveur
           ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /srv/mariage/
-            unzip -o mariage.zip
-            rm mariage.zip
+            sudo unzip -o mariage.zip
+            sudo rm mariage.zip
           EOF
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
