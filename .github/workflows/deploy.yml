@@ -46,7 +46,7 @@ jobs:
         run: |
           zip -r mariage.zip .
 
-      # Étape 6 : Déployer via SSH avec mot de passe
+      # Étape 6 : Déployer via SSH sans mot de passe
       - name: Deploy to server via SSH with password
         run: |
           # Déployer le fichier zip sur le serveur distant via SSH avec mot de passe
@@ -55,8 +55,8 @@ jobs:
           # Dézipper le fichier zip sur le serveur
           ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /srv/mariage/
-            sudo unzip -o mariage.zip
-            sudo rm mariage.zip
+            unzip -o mariage.zip
+            rm mariage.zip
           EOF
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
