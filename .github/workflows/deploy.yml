@@ -61,9 +61,10 @@ jobs:
 
           # Changer les permissions des fichiers
             ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-                cd /srv/mariage/
-                chown -R www-data:www-data .
-                chmod -R 755 .
+                cd /srv/
+                chown -R www-data:www-data mariage
+                chmod -R g+w mariage
+            EOF
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
