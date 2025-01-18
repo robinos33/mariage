@@ -44,7 +44,7 @@ jobs:
       # Étape 5 : Zipper le projet
       - name: Zip the project
         run: |
-          zip -r mariage.zip .
+          zip -r mariage.zip
 
       # Étape 6 : Déployer via SSH sans mot de passe
       - name: Deploy to server via SSH with password
@@ -60,11 +60,11 @@ jobs:
           EOF
 
           # Changer les permissions des fichiers
-            ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-                cd /srv/
-                sudo chown -R www-data:www-data mariage
-                sudo chmod -R g+w mariage
-            EOF
+          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            cd /srv/
+            sudo chown -R www-data:www-data mariage
+            sudo chmod -R g+w mariage
+          EOF
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
