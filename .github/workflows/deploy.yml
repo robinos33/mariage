@@ -56,14 +56,14 @@ jobs:
           ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd /srv/mariage/
             unzip -o mariage.zip
-            rm mariage.zip
+            sudo rm mariage.zip
           EOF
 
           # Changer les permissions des fichiers
             ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
                 cd /srv/
-                chown -R www-data:www-data mariage
-                chmod -R g+w mariage
+                sudo chown -R www-data:www-data mariage
+                sudo chmod -R g+w mariage
             EOF
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
