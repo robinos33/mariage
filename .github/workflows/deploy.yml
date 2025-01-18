@@ -53,14 +53,14 @@ jobs:
           scp -T mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
 
           # Dézipper le fichier zip sur le serveur
-          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
             cd /srv/mariage/
             unzip -o mariage.zip
             sudo rm mariage.zip
           EOF
 
           # Changer les permissions des fichiers
-          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
             cd /srv/
             sudo chown -R www-data:www-data mariage
             sudo chmod -R g+w mariage
