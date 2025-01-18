@@ -58,6 +58,12 @@ jobs:
             unzip -o mariage.zip
             rm mariage.zip
           EOF
+
+          # Changer les permissions des fichiers
+            ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+                cd /srv/mariage/
+                chown -R www-data:www-data .
+                chmod -R 755 .
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
