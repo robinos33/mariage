@@ -1,91 +1,87 @@
-<div class="w-full flex flex-col items-center">
-  <div class="container_with_padding" id="confirmation">
-    <h2 class="typo-h2">Je confirme ma participation et mon hébergement</h2>
-    <div class="shadow-lg rounded bg-white p-4">
-      <div class="card-body">
-        <p>
-          On le sait, tu nous as déja confirmé ta venue, mais on a besoin d'un
-          peu plus de détails 😄
-        </p>
-        {{ form_start(confirmationForm, {'attr': {'class': 'space-y-4', 'data-controller': 'confirmation-form'
+<turbo-frame id="confirmation-form" data-turbo="true">
+  <div class="w-full flex flex-col items-center">
+      <div class="container_with_padding" id="confirmation">
+        <h2 class="typo-h2">Je confirme ma participation et mon hébergement</h2>
+        <div class="shadow-lg rounded bg-white p-4">
+          <div class="card-body">
+            <p>
+              On le sait, tu nous as déja confirmé ta venue, mais on a besoin d'un
+              peu plus de détails 😄
+            </p>
+            {{ form_start(confirmationForm, {'attr': {'class': 'space-y-4', 'data-controller': 'confirmation-form', 'data-turbo-frame': 'confirmation-form'}}) }}
+            <label class="input input-bordered flex items-center gap-2">
+              Nom :
+              {{ form_widget(confirmationForm.name, {'attr': {'class': 'grow'}}) }}
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+              Prénom :
+              {{ form_widget(confirmationForm.firstname, {'attr': {'class': 'grow'}}) }}
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+              Email :
+              {{ form_widget(confirmationForm.email, {'attr': {'class': 'grow'}}) }}
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+              Nombre d'adultes :
+              {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'grow'
+     }}) }}
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+              Nombre d'enfants :
+              {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'grow'
+              }}) }}
+            </label>
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">Infos complémentaires : </span>
+              </div>
+              <textarea
+                id="confirmation_additional_info"
+                name="confirmation[additional_info]"
+                required="required"
+                placeholder="Régimes particuliers, allergies, âges des enfants, autres"
+                class="textarea textarea-bordered textarea-lg"
+              ></textarea>
+            </label>
+    
+            <label class="label cursor-pointer">
+              <span class="label-text">Je souhaite dormir sur place :</span>
+              {{
+                form_widget(confirmationForm.sleep_on_site, {
+                  attr: {
+                    class: "toggle toggle-primary",
+                    "data-action":
+                      "click->confirmation-form#toggleAccommodationType"
+                  }
+                })
+              }}
+            </label>
+    
+            <div data-confirmation-form-target="accommodationType" class="hidden">
+              <label>Type d'hebergement favorisé : </label>
+              {{ form_widget(confirmationForm.accommodation_type) }}
+            </div>
 
-
-
-
-        }}) }}
-        <label class="input input-bordered flex items-center gap-2">
-          Nom :
-          {{ form_widget(confirmationForm.name, {'attr': {'class': 'grow'}}) }}
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          Prénom :
-          {{ form_widget(confirmationForm.firstname, {'attr': {'class': 'grow'
-
-
-
-
-          }}) }}
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          Email :
-          {{ form_widget(confirmationForm.email, {'attr': {'class': 'grow'}}) }}
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          Nombre d'adultes :
-          {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'grow'
-
-
-
-
-
-          }}) }}
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          Nombre d'enfants :
-          {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'grow'
-
-
-
-
-
-          }}) }}
-        </label>
-        <label class="form-control">
-          <div class="label">
-            <span class="label-text">Infos complémentaires : </span>
+            <label class="label cursor-pointer">
+              <span class="label-text">Je/on souhaite prendre un brunch le dimanche :</span>
+              {{
+                form_widget(confirmationForm.brunch_on_sunday, {
+                  attr: {
+                    class: "toggle toggle-primary"
+                  }
+                })
+              }}
+            </label>
+            
+            {{ form_row(confirmationForm.submit, {'attr': {'class': 'btn btn-primary'
+            }}) }}
+            <p>Si tu prends un hébergement, on te demandera une participation 😃</p>
+            {{ form_end(confirmationForm, { render_rest: false }) }}
           </div>
-          <textarea
-            id="confirmation_additional_info"
-            name="confirmation[additional_info]"
-            required="required"
-            placeholder="Régimes particuliers, allergies, âges des enfants, autres"
-            class="textarea textarea-bordered textarea-lg"
-          ></textarea>
-        </label>
-
-        <label class="label cursor-pointer">
-          <span class="label-text">Je souhaite dormir sur place :</span>
-          {{
-            form_widget(confirmationForm.sleep_on_site, {
-              attr: {
-                class: "toggle toggle-primary",
-                "data-action":
-                  "change->confirmation-form#toggleAccommodationType"
-              }
-            })
-          }}
-        </label>
-
-        <div data-confirmation-form-target="accommodationType" class="hidden">
-          <label>Type d'hebergement favorisé : </label>
-          {{ form_widget(confirmationForm.accommodation_type) }}
         </div>
-        {{ form_row(confirmationForm.brunch_on_sunday) }}
-        {{ form_row(confirmationForm.submit, {'attr': {'class': 'btn btn-primary'
-        }}) }}
-        <p>Si tu prends un hébergement, on te demandera une participation 😃</p>
-        {{ form_end(confirmationForm, { render_rest: false }) }}
       </div>
     </div>
-  </div>
-</div>
+    {% if message is defined and type is defined %}
+      {{ component('Toast', {'message': message, 'type': type})}}
+    {% endif %}
+  </turbo-frame>

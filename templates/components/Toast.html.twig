@@ -1,0 +1,15 @@
+{% for message in app.flashes %}
+    {% if message is defined and type is defined %}
+        <div class="toast toast-end {{ attributes }}">
+            <div class="alert alert-{{ type }}">
+                <span>{{ message }}</span>
+                <button type="button" wire:click="clear">✖</button>
+            </div>
+        </div>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.toast').remove();
+            }, 3000);
+        </script>
+    {% endif %}
+{% endfor %}

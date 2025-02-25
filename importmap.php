@@ -16,20 +16,49 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
-    '@hotwired/stimulus' => [
-        'version' => '3.2.2',
-    ],
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
     '@hotwired/turbo' => [
-        'version' => '7.3.0',
+        'version' => '8.0.12',
     ],
     '@stimulus-components/scroll-to' => [
         'version' => '5.0.1',
     ],
-    'daisyui/dist/full.min.css' => [
+    'daisyui' => [
         'version' => '4.12.23',
-        'type' => 'css',
+    ],
+    'postcss-js' => [
+        'version' => '4.0.1',
+    ],
+    'picocolors' => [
+        'version' => '1.1.1',
+    ],
+    'css-selector-tokenizer' => [
+        'version' => '0.8.0',
+    ],
+    'culori/require' => [
+        'version' => '4.0.1',
+    ],
+    'camelcase-css' => [
+        'version' => '2.0.1',
+    ],
+    'postcss' => [
+        'version' => '8.5.2',
+    ],
+    'fastparse' => [
+        'version' => '1.1.2',
+    ],
+    'cssesc' => [
+        'version' => '3.0.0',
+    ],
+    'nanoid/non-secure' => [
+        'version' => '5.0.9',
+    ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
     ],
 ];

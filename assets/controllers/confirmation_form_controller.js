@@ -7,12 +7,12 @@ export default class extends Controller {
         this.toggleAccommodationType();
     }
 
-
     toggleAccommodationType(event) {
-        // Si une valeur est fournie via event, on la prend, sinon on vérifie les boutons cochés
-        const selectedValue = event?.target?.value || document.querySelector('input[type="checkbox"]')?.checked;
+        const selectedValue = document.querySelector(
+            'input[type="checkbox"]'
+        )?.checked;
 
-        if (selectedValue === '1') {
+        if (selectedValue === true) {
             this.accommodationTypeTarget.classList.remove('hidden');
         } else {
             this.accommodationTypeTarget.classList.add('hidden');
