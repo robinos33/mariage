@@ -5,6 +5,7 @@
   },
   "scripts": {
     "format": "prettier --write 'assets/**/*.{js,jsx,ts,tsx,vue,css,scss,html.twig}'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "echo \"No tests specified\" && exit 0"
   }
 }
