@@ -30,7 +30,6 @@ class IndexController extends AbstractController
         $confirmationForm->handleRequest($request);
 
         if ($confirmationForm->isSubmitted() && $confirmationForm->isValid()) {
-            dump('ok');
             $this->entityManager->persist($confirmation);
             $this->entityManager->flush();
 
@@ -41,9 +40,6 @@ class IndexController extends AbstractController
             return $this->render('confirmation/index.html.twig', [
                 'confirmationForm' => $emptyForm->createView(),
             ]);
-        } else {
-            dump($confirmationForm->getErrors());
-            dump($confirmationForm->getData());
         }
 
         return $this->render('confirmation/index.html.twig', [
