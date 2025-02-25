@@ -69,10 +69,12 @@ jobs:
               # Étape 6 : Build en mode production
             - name: Build the project in production mode
               run: |
-                  cd /srv/mariage
-                  php bin/console doctrine:migrations:migrate --no-interaction --env=prod
-                  php bin/console assets:install --env=prod          
-                  php bin/console cache:clear --env=prod
+                  ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
+                    cd /srv/mariage
+                    php bin/console doctrine:migrations:migrate --no-interaction --env=prod
+                    php bin/console assets:install --env=prod          
+                    php bin/console cache:clear --env=prod
+                  EOF
 
               env:
                   SERVER_USER: ${{ secrets.SERVER_USER }}
