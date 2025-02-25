@@ -59,18 +59,18 @@ jobs:
                     sudo rm mariage.zip
                   EOF
 
-                  # Changer les permissions des fichiers
-                  ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
-                    cd /srv/
-                    sudo chown -R www-data:www-data mariage
-                    sudo chmod -R g+w mariage
-                  EOF
-
                   ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
                     cd /srv/mariage
                     php bin/console doctrine:migrations:migrate --no-interaction --env=prod
                     php bin/console assets:install --env=prod          
                     php bin/console cache:clear --env=prod
+                  EOF
+
+                  # Changer les permissions des fichiers
+                  ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
+                    cd /srv/
+                    sudo chown -R www-data:www-data mariage
+                    sudo chmod -R g+w mariage
                   EOF
 
               env:
