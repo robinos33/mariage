@@ -1,70 +1,72 @@
 name: Symfony Build and Deploy
 
 on:
-  push:
-    branches:
-      - "main"
+    push:
+        branches:
+            - 'main'
 
 permissions:
-  contents: write
+    contents: write
 
 jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
+    build_and_deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      # Étape 1 : Checkout du code
-      - name: Checkout the code
-        uses: actions/checkout@v4
+        steps:
+            # Étape 1 : Checkout du code
+            - name: Checkout the code
+              uses: actions/checkout@v4
 
-      # Étape 2 : Installer les dépendances (y compris Symfony)
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y unzip zip sshpass
-          curl -sS https://getcomposer.org/installer | php
-          php composer.phar install --prefer-dist --no-progress --optimize-autoloader --no-dev
+            # Étape 2 : Installer les dépendances (y compris Symfony)
+            - name: Install dependencies
+              run: |
+                  sudo apt update
+                  sudo apt install -y unzip zip sshpass
+                  curl -sS https://getcomposer.org/installer | php
+                  php composer.phar install --prefer-dist --no-progress --optimize-autoloader --no-dev
 
-      # Étape 3 : Build en mode production
-      - name: Build the project in production mode
-        run: |
-          php bin/console cache:clear --env=prod
-          php bin/console assets:install --env=prod
-          # php bin/console doctrine:migrations:migrate --no-interaction --env=prod
+            # Étape 3 : Configurer l'authentification SSH
+            - name: Set up SSH key
+              run: |
+                  mkdir -p ~/.ssh
+                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+                  chmod 600 ~/.ssh/id_rsa
+                  # Ajouter l'hôte distant à known_hosts pour éviter les avertissements de sécurité
+                  ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
-      # Étape 4 : Configurer l'authentification SSH
-      - name: Set up SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          # Ajouter l'hôte distant à known_hosts pour éviter les avertissements de sécurité
-          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+            # Étape 4 : Zipper le projet
+            - name: Zip the project
+              run: |
+                  zip -r mariage.zip .
 
-      # Étape 5 : Zipper le projet
-      - name: Zip the project
-        run: |
-          zip -r mariage.zip .
+            # Étape 5 : Déployer via SSH sans mot de passe
+            - name: Deploy to server via SSH with password
+              run: |
+                  # Déployer le fichier zip sur le serveur distant via SSH avec mot de passe
+                  scp -T mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
 
-      # Étape 6 : Déployer via SSH sans mot de passe
-      - name: Deploy to server via SSH with password
-        run: |
-          # Déployer le fichier zip sur le serveur distant via SSH avec mot de passe
-          scp -T mariage.zip ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/srv/mariage/
+                  # Dézipper le fichier zip sur le serveur
+                  ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
+                    cd /srv/mariage/
+                    unzip -o mariage.zip
+                    sudo rm mariage.zip
+                  EOF
 
-          # Dézipper le fichier zip sur le serveur
-          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
-            cd /srv/mariage/
-            unzip -o mariage.zip
-            sudo rm mariage.zip
-          EOF
+                  # Changer les permissions des fichiers
+                  ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
+                    cd /srv/
+                    sudo chown -R www-data:www-data mariage
+                    sudo chmod -R g+w mariage
+                  EOF
 
-          # Changer les permissions des fichiers
-          ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
-            cd /srv/
-            sudo chown -R www-data:www-data mariage
-            sudo chmod -R g+w mariage
-          EOF
-        env:
-          SERVER_USER: ${{ secrets.SERVER_USER }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+              # Étape 6 : Build en mode production
+            - name: Build the project in production mode
+              run: |
+                  cd /srv/mariage
+                  php bin/console doctrine:migrations:migrate --no-interaction --env=prod
+                  php bin/console assets:install --env=prod          
+                  php bin/console cache:clear --env=prod
+
+              env:
+                  SERVER_USER: ${{ secrets.SERVER_USER }}
+                  SERVER_HOST: ${{ secrets.SERVER_HOST }}
