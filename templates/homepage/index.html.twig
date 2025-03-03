@@ -19,14 +19,12 @@ countdown.minutes > 1 ? 's' %} {% set countdownSentence = countdown.minutes ~
       <span class="text-red"> {{ countdownSentence }}</span>
       {% endif %}
     </p>
-    <p>
-      Dress code : il faut que tu te trouve beau/belle et bien habillé.e sur les
-      photos 😃
-    </p>
+
   </div>
 </div>
 {{ render(controller("App\\Controller\\Planning\\IndexController")) }}
 {{ render(controller("App\\Controller\\Place\\IndexController")) }}
+{{ render(controller("App\\Controller\\Infos\\IndexController")) }}
 {{ render(controller("App\\Controller\\Confirmation\\IndexController")) }}
 
 

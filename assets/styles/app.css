@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
+@tailwind/typography;
 @tailwind utilities;
+
+body.prose {
+    max-width: 100%;
+}
 
 details {
     user-select: none;

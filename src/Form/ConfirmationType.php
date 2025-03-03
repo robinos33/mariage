@@ -63,7 +63,6 @@ class ConfirmationType extends AbstractType
             ])
             ->add('accommodation_type', ChoiceType::class, [
                 'choices' => [
-                    'A l\'exterieur du mariage' => 'none',
                     'Gîte partagé' => 'gite',
                     'Tente' => 'tente',
                     'Caravane/Camion/Camping-car' => 'caravane_camion_campingcar',

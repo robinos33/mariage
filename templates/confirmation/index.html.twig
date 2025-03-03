@@ -39,8 +39,8 @@
                 id="confirmation_additional_info"
                 name="confirmation[additional_info]"
                 required="required"
-                placeholder="Régimes particuliers, allergies, âges des enfants, autres"
-                class="textarea textarea-bordered textarea-lg"
+                placeholder="Régimes particuliers, allergies, âges des enfants, autres ..."
+                class="textarea textarea-bordered textarea-lg placeholder:label-text"
               ></textarea>
             </label>
     
@@ -58,7 +58,7 @@
             </label>
     
             <div data-confirmation-form-target="accommodationType" class="hidden">
-              <label>Type d'hebergement favorisé : </label>
+              <label><span class="label-text">Type d'hebergement favorisé : </span></label>
               {{ form_widget(confirmationForm.accommodation_type) }}
             </div>
 

@@ -19,13 +19,14 @@
     {% endblock %} {% block javascripts %}
     {% block importmap %}{{ importmap("app") }}{% endblock %} {% endblock %}
   </head>
-  <body class="min-h-screen bg-custom-grey" data-controller="csrf">
+  <body class="min-h-screen bg-custom-grey prose" data-controller="csrf">
     {% block nav %}
     {{
       component("nav", {
         navItems: [
           { label: "Déroulé de la journée", route: "#planning" },
           { label: "Lieu des festivités", route: "#place" },
+          { label: "Infos utiles", route: "#infos" },
           { label: "Je confirme ma participation", route: "#confirmation" }
         ],
         currentRoute: app.request.attributes.get("_route")
