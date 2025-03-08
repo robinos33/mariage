@@ -6,20 +6,17 @@ countdown.hours > 1 ? 's' %} {% set countdownSentence = countdown.hours ~
 'heure' ~ plural %} {% elseif countdown.status == 'minutes' %} {% set plural =
 countdown.minutes > 1 ? 's' %} {% set countdownSentence = countdown.minutes ~
 'minute' ~ plural %} {% else %} {% set countdownSentence = "" %} {% endif %}
-<div class="w-full flex flex-col items-center">
-  <div class="container_with_padding">
-    <div>
-      Retrouve-nous le {{ countdown_end_date|date('l j F Y') }} à
-      {{ countdown_end_date|date('H') }}h{{ countdown_end_date|date('i') }} pour
-      notre mariage.
+<div class="w-full flex flex-col items-center fade-in" data-fade-in-target="element">
+  <div class="container_with_padding flex flex-col items-center">
+    <div class="typo-h2">
+      Retrouve-nous le Samedi 14 Juin à 15h.
     </div>
-    <img class="w-1/2" src="{{ asset('img/photo-audrey-robin.jpg') }}" />
-    <p class="flex items-center -mt-4 text-white drop-shadow-md">
-      {% if countdownSentence %} Plus que
-      <span class="text-red"> {{ countdownSentence }}</span>
+    <img class="w-3/4" src="{{ asset('img/photo-audrey-robin.jpg') }}" />
+    <p class="flex items-center -mt-20 text-white typo-h2 drop-shadow-md">
+      {% if countdownSentence %} 
+      Plus que {{ countdownSentence }} ♥
       {% endif %}
     </p>
-
   </div>
 </div>
 {{ render(controller("App\\Controller\\Planning\\IndexController")) }}

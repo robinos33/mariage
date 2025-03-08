@@ -1,24 +1,38 @@
-
-<div class="w-full bg-custom-grey flex flex-col items-center">
+<div
+    class="w-full bg-custom-grey flex flex-col items-center fade-in"
+    data-fade-in-target="element"
+>
     <div class="container_with_padding" id="planning">
-        <h2 class="typo-h2">Déroulé de la journée</h2>
+        <h2 class="typo-h2">Déroulé du weekend</h2>
 
-        <nav role="nav" data-controller="day-selector" class="flex items-center justify-center mb-5">
-            <a href="{{ path('app_timeline_day', {dayNumber: 1}) }}"
-                            data-turbo-frame="timeline-frame"
-                            data-action="click->day-selector#select"
-                            data-day-selector-target="link"
-                            class="day-link inline-block rounded bg-slate px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-slate transition duration-150 ease-in-out hover:bg-slate-300 hover:shadow-slate focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
-                                Samedi 14 juin
-                            </a>
-            <a href="{{ path('app_timeline_day', {dayNumber: 2}) }}"
-                            data-turbo-frame="timeline-frame"
-                            data-action="click->day-selector#select"
-                            data-day-selector-target="link"
-                            class="day-link inline-block rounded bg-slate px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-slate transition duration-150 ease-in-out hover:bg-slate-300 hover:shadow-slate focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
-                                Dimanche 15 juin
-                            </a>
+        <nav
+            role="nav"
+            data-controller="day-selector"
+            class="flex items-center justify-center mb-5 gap-x-8"
+        >
+            <a
+                href="{{ path('app_timeline_day', { dayNumber: 1 }) }}"
+                data-turbo-frame="timeline-frame"
+                data-action="click->day-selector#select"
+                data-day-selector-target="link"
+                class="day-link inline-block rounded bg-[#399375] px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-slate transition duration-150 ease-in-out hover:bg-slate-300 hover:shadow-slate focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+            >
+                Samedi 14 juin
+            </a>
+            <a
+                href="{{ path('app_timeline_day', { dayNumber: 2 }) }}"
+                data-turbo-frame="timeline-frame"
+                data-action="click->day-selector#select"
+                data-day-selector-target="link"
+                class="day-link inline-block rounded bg-[#399375] px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-slate transition duration-150 ease-in-out hover:bg-slate-300 hover:shadow-slate focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+            >
+                Dimanche 15 juin
+            </a>
         </nav>
-        <turbo-frame id="timeline-frame" src="{{ path('app_timeline_day', {dayNumber: 1}) }}"></turbo-frame>
+        <turbo-frame
+            id="timeline-frame"
+            src="{{ path('app_timeline_day', { dayNumber: 1 }) }}"
+        ></turbo-frame>
     </div>
 </div>
+<!-- tailwind dynamic class : bg-primary-accent-300-->

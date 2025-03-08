@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
-@tailwind/typography;
 @tailwind utilities;
+@tailwind typography;
 
 body.prose {
     max-width: 100%;
@@ -21,7 +21,7 @@ details[open] {
     }
 }
 
-details[open] summary ~ * {
+details[open] summary~* {
     animation: ease-opacity-t-b 0.5s ease;
 }
 
@@ -38,10 +38,46 @@ summary::-webkit-details-marker {
 }
 
 .container_with_padding {
-    @apply w-full lg:w-2/3;
+    @apply w-full lg:w-3/4;
     padding: 2rem;
 }
 
 .typo-h2 {
-    @apply text-3xl font-bold leading-10 mb-4;
+    font-family: 'cream-cake', sans-serif;
+    @apply text-5xl font-bold leading-10 mb-4 tracking-widest;
+}
+
+.typo-h1 {
+    font-family: 'riesling', sans-serif;
+    @apply text-4xl leading-10;
+}
+
+.inactive-link {
+    pointer-events: none;
+    color: gray;
+    cursor: default;
+}
+
+@font-face {
+    font-family: 'riesling';
+    src: url('../fonts/riesling.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'cream-cake';
+    src: url('../fonts/CreamCake.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@layer utilities {
+    .fade-in {
+        @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
+    }
+    
+    .fade-in.visible {
+        @apply opacity-100 translate-y-0;
+    }
 }

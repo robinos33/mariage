@@ -19,15 +19,15 @@
     {% endblock %} {% block javascripts %}
     {% block importmap %}{{ importmap("app") }}{% endblock %} {% endblock %}
   </head>
-  <body class="min-h-screen bg-custom-grey prose" data-controller="csrf">
+  <body class="min-h-screen bg-custom-grey prose" data-controller="csrf fade-in" data-fade-in-delay-value="150">
     {% block nav %}
     {{
       component("nav", {
         navItems: [
-          { label: "Déroulé de la journée", route: "#planning" },
+          { label: "Déroulé du weekend", route: "#planning" },
           { label: "Lieu des festivités", route: "#place" },
           { label: "Infos utiles", route: "#infos" },
-          { label: "Je confirme ma participation", route: "#confirmation" }
+          { label: "Je confirme ma venue", route: "#confirmation" }
         ],
         currentRoute: app.request.attributes.get("_route")
       })
