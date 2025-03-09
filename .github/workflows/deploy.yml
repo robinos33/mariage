@@ -62,9 +62,9 @@ jobs:
                   ssh -T ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
                     cd /srv/mariage
                     sudo chmod 777 -R var/cache
-                    php bin/console doctrine:migrations:migrate --no-interaction --env=prod   
+                    php bin/console doctrine:migrations:migrate --no-interaction --env=prod
+                    php bin/console tailwind:build -m       
                     php bin/console asset-map:compile --env=prod
-                    php bin/console tailwind:build -m    
                     php bin/console cache:clear --env=prod
                     php bin/console cache:warmup --env=prod
                   EOF
