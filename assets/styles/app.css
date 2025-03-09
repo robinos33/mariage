@@ -81,3 +81,29 @@ summary::-webkit-details-marker {
         @apply opacity-100 translate-y-0;
     }
 }
+
+@layer utilities {
+    /* Menu latéral qui glisse */
+    .menu-enter {
+        @apply fixed top-0 left-0 w-screen h-screen bg-white z-50 transform translate-x-full transition-transform duration-500 ease-in-out;
+    }
+    .menu-enter.visible {
+        @apply translate-x-0;
+    }
+
+    /* Animation du bouton burger -> croix */
+    .burger-line {
+        @apply absolute w-5 h-0.5 bg-black transition-all duration-300;
+    }
+    .open .burger-line:nth-child(1) {
+        @apply rotate-45 top-2;
+    }
+    .open .burger-line:nth-child(2) {
+        @apply opacity-0;
+    }
+    .open .burger-line:nth-child(3) {
+        @apply -rotate-45 top-2;
+    }
+}
+
+
