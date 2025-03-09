@@ -23,11 +23,11 @@
             </label>
             <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
               <span class="grow">Nombre d'adultes :</span>
-              {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'w-12 lg:w-auto'}}) }}
+              {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'w-24 lg:w-auto'}}) }}
             </label>
             <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
               <span class="grow">Nombre d'enfants :</span>
-              {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'w-12 lg:w-auto'}}) }}
+              {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'w-24 lg:w-auto'}}) }}
             </label>
             <label class="form-control !text-xs lg:!text-base">
               <div class="label">
@@ -38,7 +38,7 @@
                 name="confirmation[additional_info]"
                 required="required"
                 placeholder="Régimes particuliers, allergies, âges des enfants, autres ..."
-                class="textarea textarea-bordered textarea-lg lg:placeholder:label-text placeholder:!text-xs"
+                class="textarea textarea-bordered textarea-lg lg:label-text !text-xs lg:placeholder:label-text placeholder:!text-xs"
               ></textarea>
             </label>
     
