@@ -59,9 +59,7 @@ class IndexController extends AbstractController
 
             $this->addFlash('success', 'Votre confirmation a bien été envoyée');
 
-            return $this->render('confirmation/index.html.twig', [
-                'confirmationForm' => $emptyForm->createView(),
-            ]);
+            return $this->redirectToRoute('confirmation_thanks');
         }
 
         return $this->render('confirmation/index.html.twig', [
