@@ -22,14 +22,12 @@
               {{ form_widget(confirmationForm.email, {'attr': {'class': 'grow'}}) }}
             </label>
             <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
-              Nombre d'adultes :
-              {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'grow'
-     }}) }}
+              <span class="grow">Nombre d'adultes :</span>
+              {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'w-12 lg:w-auto'}}) }}
             </label>
             <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
-              Nombre d'enfants :
-              {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'grow'
-              }}) }}
+              <span class="grow">Nombre d'enfants :</span>
+              {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'w-12 lg:w-auto'}}) }}
             </label>
             <label class="form-control !text-xs lg:!text-base">
               <div class="label">
@@ -73,9 +71,7 @@
               }}
             </label>
             
-            {{ form_row(confirmationForm.submit, {'attr': {'class': 'btn btn-primary'
-            }}) }}
-            <p>Si tu prends un hébergement, on te demandera une participation 😃</p>
+            {{ form_row(confirmationForm.submit, {'attr': {'class': 'btn btn-primary'}}) }}
             {{ form_end(confirmationForm, { render_rest: false }) }}
           </div>
         </div>
