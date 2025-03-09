@@ -23,6 +23,7 @@ countdown.minutes > 1 ? 's' %} {% set countdownSentence = countdown.minutes ~
 {{ render(controller("App\\Controller\\Place\\IndexController")) }}
 {{ render(controller("App\\Controller\\Infos\\IndexController")) }}
 {{ render(controller("App\\Controller\\Confirmation\\IndexController")) }}
+{{ include('photos/index.html.twig') }}
 
 
 {% endblock %}
