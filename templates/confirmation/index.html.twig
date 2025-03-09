@@ -9,29 +9,29 @@
               peu plus de détails 😄
             </p>
             {{ form_start(confirmationForm, {'attr': {'class': 'space-y-4', 'data-controller': 'confirmation-form', 'data-turbo-frame': 'confirmation-form'}}) }}
-            <label class="input input-bordered flex items-center gap-2">
+            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
               Nom :
               {{ form_widget(confirmationForm.name, {'attr': {'class': 'grow'}}) }}
             </label>
-            <label class="input input-bordered flex items-center gap-2">
+            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
               Prénom :
               {{ form_widget(confirmationForm.firstname, {'attr': {'class': 'grow'}}) }}
             </label>
-            <label class="input input-bordered flex items-center gap-2">
+            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
               Email :
               {{ form_widget(confirmationForm.email, {'attr': {'class': 'grow'}}) }}
             </label>
-            <label class="input input-bordered flex items-center gap-2">
+            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
               Nombre d'adultes :
               {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'grow'
      }}) }}
             </label>
-            <label class="input input-bordered flex items-center gap-2">
+            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
               Nombre d'enfants :
               {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'grow'
               }}) }}
             </label>
-            <label class="form-control">
+            <label class="form-control !text-xs lg:!text-base">
               <div class="label">
                 <span class="label-text">Infos complémentaires : </span>
               </div>
@@ -40,12 +40,12 @@
                 name="confirmation[additional_info]"
                 required="required"
                 placeholder="Régimes particuliers, allergies, âges des enfants, autres ..."
-                class="textarea textarea-bordered textarea-lg placeholder:label-text"
+                class="textarea textarea-bordered textarea-lg lg:placeholder:label-text placeholder:!text-xs"
               ></textarea>
             </label>
     
             <label class="label cursor-pointer">
-              <span class="label-text">Je souhaite dormir sur place :</span>
+              <span class="lg:label-text !text-xs">Je souhaite dormir sur place :</span>
               {{
                 form_widget(confirmationForm.sleep_on_site, {
                   attr: {
@@ -58,12 +58,12 @@
             </label>
     
             <div data-confirmation-form-target="accommodationType" class="hidden">
-              <label><span class="label-text">Type d'hebergement favorisé : </span></label>
+              <label><span class="lg:label-text !text-xs">Type d'hebergement favorisé : </span></label>
               {{ form_widget(confirmationForm.accommodation_type) }}
             </div>
 
             <label class="label cursor-pointer">
-              <span class="label-text">Je/on souhaite prendre un brunch le dimanche :</span>
+              <span class="lg:label-text !text-xs">Je/on souhaite prendre un brunch le dimanche :</span>
               {{
                 form_widget(confirmationForm.brunch_on_sunday, {
                   attr: {
