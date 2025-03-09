@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 @tailwind typography;
+@tailwind utilities;
 
 body.prose {
     max-width: 100%;
@@ -80,9 +80,7 @@ summary::-webkit-details-marker {
     .fade-in.visible {
         @apply opacity-100 translate-y-0;
     }
-}
 
-@layer utilities {
     /* Menu latéral qui glisse */
     .menu-enter {
         @apply fixed top-0 left-0 w-screen h-screen bg-white z-50 transform translate-x-full transition-transform duration-500 ease-in-out;
@@ -105,5 +103,4 @@ summary::-webkit-details-marker {
         @apply -rotate-45 top-2;
     }
 }
-
 
