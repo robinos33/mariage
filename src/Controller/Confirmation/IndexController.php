@@ -6,6 +6,7 @@ namespace App\Controller\Confirmation;
 
 use App\Entity\Confirmation;
 use App\Form\ConfirmationType;
+use App\Service\GoogleSheetsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/confirmation', name: 'confirmation')]
 class IndexController extends AbstractController
 {
-    public function __construct(private MailerInterface $mailer, private EntityManagerInterface $entityManager)
+    public function __construct(
+        private MailerInterface $mailer,
+        private EntityManagerInterface $entityManager,
+        private GoogleSheetsService $googleSheetsService)
     {
     }
 
@@ -30,8 +34,26 @@ class IndexController extends AbstractController
         $confirmationForm->handleRequest($request);
 
         if ($confirmationForm->isSubmitted() && $confirmationForm->isValid()) {
-            $this->entityManager->persist($confirmation);
-            $this->entityManager->flush();
+            // $this->entityManager->persist($confirmation);
+            // $this->entityManager->flush();
+
+            /* @var Confirmation $confirmaiton */
+            $rowData = [
+                $confirmation->getFirstName(),
+                $confirmation->getName(),
+                $confirmation->getEmail(),
+                $confirmation->getAdultsCount(),
+                $confirmation->getChildrenCount(),
+                $confirmation->getAdditionalInfo(),
+                $confirmation->isSleepOnSite() ? 'Oui' : 'Non',
+                $confirmation->getAccommodationType(),
+                $confirmation->isBrunchOnSunday() ? 'Oui' : 'Non',
+                date('Y-m-d H:i:s'),
+            ];
+
+            $this->googleSheetsService->appendRow($rowData);
+
+            $this->addFlash('success', 'Données envoyées avec succès !');
 
             $this->sendConfirmationEmail($confirmation);
 

@@ -23,6 +23,8 @@ jobs:
                   echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> .env
                   echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
                   echo "MAILER_DSN=${{ secrets.MAILER_DSN }}" >> .env
+                  echo "GOOGLE_AUTH_CONFIG=${{ vars.GOOGLE_AUTH_CONFIG }}" >> .env
+                  echo "SPREADSHEET_ID=${{ secrets.SPREADSHEET_ID }}" >> .env
 
             # Étape 2 : Installer les dépendances (y compris Symfony)
             - name: Install dependencies
