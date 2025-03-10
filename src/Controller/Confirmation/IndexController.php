@@ -21,8 +21,9 @@ class IndexController extends AbstractController
     public function __construct(
         private MailerInterface $mailer,
         private EntityManagerInterface $entityManager,
-        private GoogleSheetsService $googleSheetsService)
-    {
+        private GoogleSheetsService $googleSheetsService,
+        private string $email,
+    ) {
     }
 
     public function __invoke(Request $request)
@@ -30,14 +31,9 @@ class IndexController extends AbstractController
         $confirmation = new Confirmation();
 
         $confirmationForm = $this->createForm(ConfirmationType::class, $confirmation, ['action' => $this->generateUrl('confirmation')]);
-        $emptyForm = clone $confirmationForm;
         $confirmationForm->handleRequest($request);
 
         if ($confirmationForm->isSubmitted() && $confirmationForm->isValid()) {
-            // $this->entityManager->persist($confirmation);
-            // $this->entityManager->flush();
-
-            /* @var Confirmation $confirmaiton */
             $rowData = [
                 $confirmation->getFirstName(),
                 $confirmation->getName(),
@@ -55,7 +51,7 @@ class IndexController extends AbstractController
 
             $this->addFlash('success', 'Données envoyées avec succès !');
 
-            $this->sendConfirmationEmail($confirmation);
+            $this->sendConfirmationEmail($rowData);
 
             $this->addFlash('success', 'Votre confirmation a bien été envoyée');
 
@@ -67,13 +63,13 @@ class IndexController extends AbstractController
         ]);
     }
 
-    public function sendConfirmationEmail()
+    public function sendConfirmationEmail(array $data)
     {
         $email = (new Email())
         ->from(new Address('contact@mariage-audrey-et-robin.online', 'Audrey et Robin'))
-        ->to('robinos333@hotmail.fr')
+        ->to($this->email)
         ->subject('Confirmation de présence')
-        ->html("c'est bon");
+        ->html(implode('<br />', $data));
 
         $this->mailer->send($email);
     }
