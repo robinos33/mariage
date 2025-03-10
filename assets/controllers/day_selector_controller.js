@@ -6,6 +6,9 @@ export default class extends Controller {
     select(event) {
         event.preventDefault();
 
+        this.linkTargets.forEach((link) => link.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
         const url = event.currentTarget.getAttribute('href');
         document.getElementById('timeline-frame').src = url;
     }
