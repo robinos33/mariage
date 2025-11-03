@@ -5,74 +5,8 @@
         <div class="shadow-lg rounded bg-white p-4 mb-8">
           <div class="card-body">
             <p>
-              On le sait, tu nous as déja confirmé ta venue, mais on a besoin d'un
-              peu plus de détails 😄
+              Le mariage est passé !
             </p>
-            {{ form_start(confirmationForm, {'attr': {'class': 'space-y-4', 'data-controller': 'confirmation-form', 'data-turbo-frame': 'confirmation-form'}}) }}
-            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
-              Nom :
-              {{ form_widget(confirmationForm.name, {'attr': {'class': 'grow'}}) }}
-            </label>
-            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
-              Prénom :
-              {{ form_widget(confirmationForm.firstname, {'attr': {'class': 'grow'}}) }}
-            </label>
-            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
-              Email :
-              {{ form_widget(confirmationForm.email, {'attr': {'class': 'grow'}}) }}
-            </label>
-            <label class="input input-bordered flex items-center gap-2  !text-xs lg:!text-base">
-              <span class="grow">Nombre d'adultes :</span>
-              {{ form_widget(confirmationForm.adults_count, {'attr': {'class': 'w-1/2 md:w-3/4'}}) }}
-            </label>
-            <label class="input input-bordered flex items-center gap-2 !text-xs lg:!text-base">
-              <span class="grow">Nombre d'enfants :</span>
-              {{ form_widget(confirmationForm.children_count, {'attr': {'class': 'w-1/2 md:w-3/4'}}) }}
-            </label>
-            <label class="form-control !text-xs lg:!text-base">
-              <div class="label">
-                <span class="label-text">Infos complémentaires : </span>
-              </div>
-              <textarea
-                id="confirmation_additional_info"
-                name="confirmation[additional_info]"
-                required="required"
-                placeholder="Régimes particuliers, allergies, âges des enfants, autres ..."
-                class="textarea textarea-bordered textarea-lg lg:label-text !text-xs lg:placeholder:label-text placeholder:!text-xs"
-              ></textarea>
-            </label>
-    
-            <label class="label cursor-pointer">
-              <span class="lg:label-text !text-xs">Je souhaite dormir sur place :</span>
-              {{
-                form_widget(confirmationForm.sleep_on_site, {
-                  attr: {
-                    class: "toggle toggle-primary",
-                    "data-action":
-                      "click->confirmation-form#toggleAccommodationType"
-                  }
-                })
-              }}
-            </label>
-    
-            <div data-confirmation-form-target="accommodationType" class="hidden">
-              <label><span class="lg:label-text !text-xs">Type d'hebergement favorisé : </span></label>
-              {{ form_widget(confirmationForm.accommodation_type) }}
-            </div>
-
-            <label class="label cursor-pointer">
-              <span class="lg:label-text !text-xs">Je/on souhaite prendre un brunch le dimanche :</span>
-              {{
-                form_widget(confirmationForm.brunch_on_sunday, {
-                  attr: {
-                    class: "toggle toggle-primary"
-                  }
-                })
-              }}
-            </label>
-            
-            {{ form_row(confirmationForm.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-            {{ form_end(confirmationForm, { render_rest: false }) }}
           </div>
         </div>
       </div>

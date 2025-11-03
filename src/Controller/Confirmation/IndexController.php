@@ -51,7 +51,7 @@ class IndexController extends AbstractController
 
             $this->addFlash('success', 'Données envoyées avec succès !');
 
-            $this->sendConfirmationEmail($rowData);
+            //$this->sendConfirmationEmail($rowData);
 
             $this->addFlash('success', 'Votre confirmation a bien été envoyée');
 
